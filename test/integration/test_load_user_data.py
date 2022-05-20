@@ -5,14 +5,17 @@ from utils.db import WarehouseConnection
 from utils.sde_config import get_warehouse_creds
 
 
+def _truncate_user_data():
+    with WarehouseConnection(get_warehouse_creds()).managed_cursor() as curr:
+        curr.execute("Truncate table housing.user;")
+
+
 @pytest.fixture()
 def set_up_tear_down():
     # Clean up existing data
-    with WarehouseConnection(get_warehouse_creds()).managed_cursor() as curr:
-        curr.execute("Truncate table housing.user;")
+    _truncate_user_data()
     yield
-    with WarehouseConnection(get_warehouse_creds()).managed_cursor() as curr:
-        curr.execute("Truncate table housing.user;")
+    _truncate_user_data()
 
 
 class TestLoadUserData:
