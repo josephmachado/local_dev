@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  warehouse:
+    image: postgres:13
+    container_name: warehouse
+    environment:
+      POSTGRES_USER: ${WAREHOUSE_USER}
+      POSTGRES_PASSWORD: ${WAREHOUSE_PASSWORD}
+      POSTGRES_DB: ${WAREHOUSE_DB}
+    volumes:
+      - ./containers/warehouse:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${WAREHOUSE_USER}" ]
+      interval: 5s
+      retries: 5
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - sde_network
+
+  loader:
+    image: loader
+    container_name: loader
+    build:
+      context: ./
+      dockerfile: ./containers/loader/Dockerfile
+    volumes:
+      - ./:/opt/sde
+    environment:
+      WAREHOUSE_USER: ${WAREHOUSE_USER}
+      WAREHOUSE_PASSWORD: ${WAREHOUSE_PASSWORD}
+      WAREHOUSE_DB: ${WAREHOUSE_DB}
+      WAREHOUSE_HOST: ${WAREHOUSE_HOST}
+      WARREHOUSE_PORT: ${WAREHOUSE_PORT}
+    networks:
+      - sde_network
+
+  dashboard:
+    image: metabase/metabase
+    container_name: dashboard
+    ports:
+      - "3000:3000"
+    networks:
+      - sde_network
+
+networks:
+  sde_network:
+    driver: bridge
+    name: sde_network
