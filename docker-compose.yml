@@ -24,8 +24,7 @@ services:
     image: loader
     container_name: loader
     build:
-      context: ./
-      dockerfile: ./containers/loader/Dockerfile
+      context: ./containers/loader/
     volumes:
       - ./:/opt/sde
     environment:
@@ -47,5 +46,4 @@ services:
 
 networks:
   sde_network:
-    driver: bridge
     name: sde_network

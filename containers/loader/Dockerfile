@@ -7,7 +7,7 @@ WORKDIR /opt/sde/src/loader
 ENV PYTHONPATH=/opt/sde
 
 # install python requirements
-COPY containers/loader/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # COPY our code folder to docker
