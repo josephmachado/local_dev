@@ -1,7 +1,7 @@
 FROM python:3.9.5
 
 # set up location of code
-WORKDIR /opt/sde
+WORKDIR /opt/sde/src/loader
 
 # lets us import from folders inside /src/loader directly
 ENV PYTHONPATH=/opt/sde

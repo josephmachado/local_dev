@@ -2,7 +2,6 @@ import random
 from typing import Dict, List, Union
 
 import psycopg2.extras as p
-
 from utils.db import WarehouseConnection
 from utils.sde_config import get_warehouse_creds
 

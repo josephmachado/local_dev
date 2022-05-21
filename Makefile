@@ -8,7 +8,7 @@ sh:
 	docker exec -ti loader bash
 
 run-etl:
-	docker exec loader python src/loader/load_user_data.py
+	docker exec loader python load_user_data.py
 
 warehouse:
 	docker exec -ti warehouse psql postgres://sdeuser:sdepassword1234@localhost:5432/warehouse
