@@ -10,11 +10,13 @@ def _get_user_data_insert_query() -> str:
     return """
     INSERT INTO housing.user(
         id,
-        name
+        name,
+        price
     )
     VALUES (
         %(user_id)s,
-        %(user_name)s
+        %(user_name)s,
+        %(price)s
     )
     """
 
@@ -26,6 +28,7 @@ def get_user_data(num_records: int = 10) -> List[Dict[str, Union[int, str]]]:
             "user_name": random.choice(
                 ["john", "jane", "ash", "misty", "brock"]
             ),
+            "price": random.randint(10000, 100000),
         }
         for _ in range(num_records)
     ]

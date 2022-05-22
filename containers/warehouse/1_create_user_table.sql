@@ -3,5 +3,6 @@ DROP SCHEMA IF EXISTS housing;
 CREATE SCHEMA housing;
 CREATE TABLE housing.user (
     id INT,
-    name VARCHAR(50)
+    name VARCHAR(50),
+    price INT
 );
